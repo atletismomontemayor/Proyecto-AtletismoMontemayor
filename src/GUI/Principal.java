@@ -54,7 +54,7 @@ public class Principal extends javax.swing.JFrame {
             if (cap.equals("0")) {
                 this.setVisible(true);
                 JOptionPane.showMessageDialog(null, "Bienvenido");
-                MiPerfil perfil = new MiPerfil();
+                Sesion_Iniciada perfil = new Sesion_Iniciada();
                 perfil.setVisible(true);
                 perfil.pack();
                 dispose();

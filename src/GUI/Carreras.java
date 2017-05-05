@@ -50,6 +50,7 @@ public class Carreras extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableInscripcion = new javax.swing.JTable();
         jButtonDatos = new javax.swing.JButton();
+        jButtonParticipar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Lista de Carreras");
@@ -79,6 +80,8 @@ public class Carreras extends javax.swing.JFrame {
             }
         });
 
+        jButtonParticipar.setText("Participar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,7 +91,9 @@ public class Carreras extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
+                .addComponent(jButtonParticipar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonDatos)
                 .addGap(22, 22, 22))
         );
@@ -98,7 +103,9 @@ public class Carreras extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
-                .addComponent(jButtonDatos)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonDatos)
+                    .addComponent(jButtonParticipar))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
@@ -136,6 +143,7 @@ public class Carreras extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDatos;
+    private javax.swing.JButton jButtonParticipar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableInscripcion;
     // End of variables declaration//GEN-END:variables
