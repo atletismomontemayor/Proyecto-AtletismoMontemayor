@@ -309,13 +309,12 @@ public class Registrar extends javax.swing.JFrame {
          * "Error", JOptionPane.ERROR_MESSAGE);
         }*
          */
-        ConexionSQL iConexion = new ConexionSQL(); 
-        Connection conexion = iConexion.conectar();
-        String query ="INSERT INTO persona VALUES ('14856974I','Jesus','Sanchez Perez','masculino',638547896,1994,'jeusa','contra','1458-54-5489-5685824545',0)";
+         
+        
+        String query ="INSERT INTO persona VALUES ('78856974I','Manuel','Sanchez Perez','masculino',678485478,1997,'manue','tracon','7458-54-5489-1891918181898',0);";
         try {
            
-            PreparedStatement insertar;
-            insertar = conexion.prepareStatement(query);
+            PreparedStatement insertar = conexion.prepareStatement("INSERT INTO persona VALUES ('78856974I','Manuel','Sanchez Perez','masculino',678485478,1997,'manue','tracon','7458-54-5489-1891918181898',0)");
             
             
             insertar.setString(1, jTextFieldDNI.getText());
@@ -323,11 +322,9 @@ public class Registrar extends javax.swing.JFrame {
             insertar.setString(3, jTextFieldApellido.getText());
             if (jRadioButtonH.isSelected()) {
                 insertar.setString(4, "masculino");
-            } else if (jRadioButtonM.isSelected()) {
+            } else{
                 insertar.setString(4, "femenino");
-            } else {
-                System.err.println("error en el genero");
-            }
+            } 
 
             insertar.setInt(5, Integer.valueOf(jTextFieldTlfn.getText()));
             insertar.setInt(6, Integer.valueOf(jTextFieldNacimiento.getText()));
@@ -339,9 +336,10 @@ public class Registrar extends javax.swing.JFrame {
             } else {
                 insertar.setString(10, "0");
             }
+            
             insertar.executeUpdate();
-            insertar.close();
-            iConexion.desconectar();
+            
+            
         } catch (SQLException ex) {
             System.err.println("fallo sql");
         } catch (NullPointerException e){
@@ -512,4 +510,6 @@ public class Registrar extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldTlfn;
     // End of variables declaration//GEN-END:variables
+    ConexionSQL iConexion = new ConexionSQL();
+    Connection conexion = iConexion.conectar();
 }
