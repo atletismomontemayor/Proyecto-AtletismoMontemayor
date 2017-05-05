@@ -5,6 +5,13 @@
  */
 package GUI;
 
+import Modelo.ConexionSQL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +26,47 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+        void acceder(String usuario, String pwd){
+        String cap="";
+        String sql="SELECT * FROM persona WHERE nombreusuario='"+usuario+"' && contrasenya='"+pwd+"'";
+         try {
+             Statement st = con.createStatement();
+             ResultSet rs= st.executeQuery(sql);
+             while (rs.next()){
+                 cap=rs.getString("administrador");
+             }
+             if (cap.equals("1")){
+                 
+                 
+                 this.setVisible(false);
+                 JOptionPane.showMessageDialog(null, "Bienvenido administrador");
+                 /*
+                  Ventana del administrador
+                 ventanaadmin ingreso = new ventanaadmin();
+                 ingreso.setVisible(true);
+                 ingreso.pack();
+                 ventanaadmin.lblusu.setText(usuario); para que salga quien esta conectado
+                 */
+                 dispose();
+                                 
+             }
+             if (cap.equals("0")){
+                 this.setVisible(true);
+                 JOptionPane.showMessageDialog(null, "Bienvenido");
+                 MiPerfil perfil = new MiPerfil();
+                 perfil.setVisible(true);
+                 perfil.pack();
+                 dispose();
+                 //ventanaadmin.lblusu.setText(usuario); para que salga quien esta conectado
+             }
+             if ((!cap.equals("1")) && (!cap.equals("0"))){
+                 JOptionPane.showMessageDialog(this, "No existe el nombre de usuario");
+             }
+         } catch (SQLException ex) {
+             Logger.getLogger(Corredores.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         
     }
 
     /**
@@ -148,6 +196,11 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         // TODO add your handling code here:
+        String usu= jTextFieldUser.getText();
+        String pass=new String(jPasswordFieldPass.getPassword());
+        acceder(usu,pass);
+           
+        /*
         if (!jTextFieldUser.getText().equals("") || !jPasswordFieldPass.getText().equals("")) {
             Sesion_Iniciada obj = new Sesion_Iniciada();
             obj.setVisible(true);
@@ -155,6 +208,7 @@ public class Principal extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        */
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarActionPerformed
@@ -212,5 +266,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordFieldPass;
     private javax.swing.JTextField jTextFieldUser;
     // End of variables declaration//GEN-END:variables
-
+    ConexionSQL cc=new ConexionSQL();
+    Connection con = cc.conectar();
 }
