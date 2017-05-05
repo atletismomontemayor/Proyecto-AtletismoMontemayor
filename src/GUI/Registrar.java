@@ -309,10 +309,49 @@ public class Registrar extends javax.swing.JFrame {
          * "Error", JOptionPane.ERROR_MESSAGE);
         }*
          */
-        ConexionSQL conexion = new ConexionSQL(); 
+        ConexionSQL iConexion = new ConexionSQL(); 
+        Connection conexion = iConexion.conectar();
+        String query ="INSERT INTO persona VALUES ('14856974I','Jesus','Sanchez Perez','masculino',638547896,1994,'jeusa','contra','1458-54-5489-5685824545',0)";
+        try {
+           
+            PreparedStatement insertar;
+            insertar = conexion.prepareStatement(query);
+            
+            
+            insertar.setString(1, jTextFieldDNI.getText());
+            insertar.setString(2, jTextFieldNombre.getText());
+            insertar.setString(3, jTextFieldApellido.getText());
+            if (jRadioButtonH.isSelected()) {
+                insertar.setString(4, "masculino");
+            } else if (jRadioButtonM.isSelected()) {
+                insertar.setString(4, "femenino");
+            } else {
+                System.err.println("error en el genero");
+            }
+
+            insertar.setInt(5, Integer.valueOf(jTextFieldTlfn.getText()));
+            insertar.setInt(6, Integer.valueOf(jTextFieldNacimiento.getText()));
+            insertar.setString(7, jTextFieldNomUser.getText());
+            insertar.setString(8, Arrays.toString(jPasswordFieldPass.getPassword()));
+            insertar.setString(9, jTextFieldCuenta.getText());
+            if (jCheckBoxAdministrador.isSelected()) {
+                insertar.setString(10, "1");
+            } else {
+                insertar.setString(10, "0");
+            }
+            insertar.executeUpdate();
+            insertar.close();
+            iConexion.desconectar();
+        } catch (SQLException ex) {
+            System.err.println("fallo sql");
+        } catch (NullPointerException e){
+            System.err.println("Excepcion NullPointerException");
+            e.printStackTrace();
+        }
+        
         /**
-        try {            
-            PreparedStatement insertar = conexion.conectar().prepareStatement("INSERT INTO personas VALUES (?,?,?,?,?,?,?,?,?,?)");
+        try {        
+                       
             insertar.setString(1, jTextFieldDNI.getText());
             insertar.setString(2, jTextFieldNombre.getText());
             insertar.setString(3, jTextFieldApellido.getText());
@@ -339,8 +378,8 @@ public class Registrar extends javax.swing.JFrame {
             conexion.desconectar();
         } catch (NumberFormatException | SQLException ex) {
             System.err.println("Error en el SQL");
-        }
-        **/
+        }**/
+       
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jRadioButtonHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonHActionPerformed
