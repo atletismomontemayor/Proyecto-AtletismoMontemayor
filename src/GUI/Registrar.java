@@ -5,10 +5,15 @@
  */
 package GUI;
 
+import Modelo.ConexionSQL;
+import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import java.awt.Checkbox;
-import java.awt.event.*;
-import javax.swing.*;
 
 /**
  *
@@ -26,6 +31,9 @@ public class Registrar extends javax.swing.JFrame {
         buttonGroupSexo.add(jRadioButtonM);
         jTextFieldCuenta.setEnabled(false);
 
+        /**
+         * '11111111Q','Ana','Gomez Rey','femenino',666666666,1990,'anagomez','rey1111','111-12-5897-1548965878',0)*
+         */
     }
 
     /**
@@ -38,6 +46,7 @@ public class Registrar extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroupSexo = new javax.swing.ButtonGroup();
+        jSeparator1 = new javax.swing.JSeparator();
         jLabelNombre = new javax.swing.JLabel();
         jLabelApellidos = new javax.swing.JLabel();
         jLabelNomUsuario = new javax.swing.JLabel();
@@ -65,12 +74,16 @@ public class Registrar extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registrar");
 
+        jLabelNombre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelNombre.setText("Nombre");
 
+        jLabelApellidos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelApellidos.setText("Apellidos");
 
+        jLabelNomUsuario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelNomUsuario.setText("Nombre Usuario");
 
+        jLabelContraseña.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelContraseña.setText("Contraseña");
 
         jTextFieldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -92,6 +105,7 @@ public class Registrar extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("DNI");
 
         jTextFieldDNI.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -100,6 +114,7 @@ public class Registrar extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Telefono");
 
         jTextFieldTlfn.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -108,6 +123,7 @@ public class Registrar extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel3.setText("Sexo");
 
         jRadioButtonH.setText("Hombre");
@@ -164,66 +180,59 @@ public class Registrar extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelNomUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jTextFieldDNI, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextFieldNomUser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                .addComponent(jTextFieldNacimiento, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(88, 88, 88)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabelApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabelContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTextFieldTlfn, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                        .addComponent(jPasswordFieldPass))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButtonH, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButtonM))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(63, 63, 63)
-                                        .addComponent(jLabelNombre))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(35, 35, 35)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabelNomUsuario)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel5)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(53, 53, 53)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jRadioButtonCuenta)
-                                .addGap(7, 7, 7)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(7, 7, 7)
+                                .addComponent(jTextFieldCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jTextFieldDNI, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextFieldNomUser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                                        .addComponent(jTextFieldNacimiento, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(88, 88, 88)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addComponent(jLabelApellidos)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                                            .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabelContraseña)
-                                                .addComponent(jLabel2))
-                                            .addGap(30, 30, 30)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jTextFieldTlfn, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                                                .addComponent(jPasswordFieldPass))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(41, 41, 41)
-                                        .addComponent(jRadioButtonH, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jRadioButtonM))))
-                            .addComponent(jTextFieldCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(285, 285, 285)
-                        .addComponent(jCheckBoxAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(208, 208, 208)
-                        .addComponent(jButtonAceptar)
-                        .addGap(100, 100, 100)
-                        .addComponent(jButtonBorrar)))
-                .addContainerGap(143, Short.MAX_VALUE))
+                                .addGap(264, 264, 264)
+                                .addComponent(jCheckBoxAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(187, 187, 187)
+                                .addComponent(jButtonAceptar)
+                                .addGap(100, 100, 100)
+                                .addComponent(jButtonBorrar)))))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,12 +265,10 @@ public class Registrar extends javax.swing.JFrame {
                                             .addComponent(jRadioButtonM)
                                             .addComponent(jLabel3))
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jTextFieldNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel5))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(10, 10, 10)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jTextFieldNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel5)))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jTextFieldCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jRadioButtonCuenta))
@@ -271,7 +278,7 @@ public class Registrar extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jButtonAceptar)
                                     .addComponent(jButtonBorrar))
-                                .addGap(64, 64, 64))))
+                                .addGap(155, 155, 155))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -292,15 +299,48 @@ public class Registrar extends javax.swing.JFrame {
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         // TODO add your handling code here:
-        if (!jTextFieldNombre.getText().equals("") || !jTextFieldApellido.getText().equals("") || !jTextFieldNomUser.getText().equals("")
-                || !jPasswordFieldPass.getText().equals("")) {
-            Principal obj = new Principal();
-            obj.setVisible(true);
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        /**
+         * if (!jTextFieldNombre.getText().equals("") ||
+         * !jTextFieldApellido.getText().equals("") ||
+         * !jTextFieldNomUser.getText().equals("") ||
+         * !jPasswordFieldPass.getText().equals("")) { Principal obj = new
+         * Principal(); obj.setVisible(true); dispose(); } else {
+         * JOptionPane.showMessageDialog(this, "Rellena todos los campos",
+         * "Error", JOptionPane.ERROR_MESSAGE);
+        }*
+         */
+        ConexionSQL conexion = new ConexionSQL(); 
+        /**
+        try {            
+            PreparedStatement insertar = conexion.conectar().prepareStatement("INSERT INTO personas VALUES (?,?,?,?,?,?,?,?,?,?)");
+            insertar.setString(1, jTextFieldDNI.getText());
+            insertar.setString(2, jTextFieldNombre.getText());
+            insertar.setString(3, jTextFieldApellido.getText());
+            if (jRadioButtonH.isSelected()) {
+                insertar.setString(4, "masculino");
+            } else if (jRadioButtonM.isSelected()) {
+                insertar.setString(4, "femenino");
+            } else {
+                System.err.println("error en el genero");
+            }
 
+            insertar.setInt(5, Integer.valueOf(jTextFieldTlfn.getText()));
+            insertar.setInt(6, Integer.valueOf(jTextFieldNacimiento.getText()));
+            insertar.setString(7, jTextFieldNomUser.getText());
+            insertar.setString(8, Arrays.toString(jPasswordFieldPass.getPassword()));
+            insertar.setString(9, jTextFieldCuenta.getText());
+            if (jCheckBoxAdministrador.isSelected()) {
+                insertar.setString(10, "1");
+            } else {
+                insertar.setString(10, "0");
+            }
+            insertar.executeUpdate();
+            insertar.close();
+            conexion.desconectar();
+        } catch (NumberFormatException | SQLException ex) {
+            System.err.println("Error en el SQL");
+        }
+        **/
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jRadioButtonHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonHActionPerformed
@@ -424,6 +464,7 @@ public class Registrar extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButtonCuenta;
     private javax.swing.JRadioButton jRadioButtonH;
     private javax.swing.JRadioButton jRadioButtonM;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextFieldApellido;
     private javax.swing.JTextField jTextFieldCuenta;
     private javax.swing.JTextField jTextFieldDNI;
