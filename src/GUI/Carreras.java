@@ -20,11 +20,13 @@ import javax.swing.table.DefaultTableModel;
  * @author Jesús
  */
 public class Carreras extends javax.swing.JFrame {
+
     Connection cn;
     PreparedStatement ps;
     ResultSet rs;
     ResultSetMetaData rsm;
     DefaultTableModel dtm;
+
     /**
      * Creates new form Carreras
      */
@@ -106,22 +108,22 @@ public class Carreras extends javax.swing.JFrame {
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            cn=DriverManager.getConnection("jdbc:mysql://localhost/atletismo", "root", "");
-            ps=cn.prepareStatement("select * from carrera");
-            rs=ps.executeQuery();
-            rsm=rs.getMetaData();
-            ArrayList<Object[]> data=new ArrayList<>();
-            while (rs.next()){
-                Object[] rows=new Object[rsm.getColumnCount()];
-                for (int i = 0;i < rows.length; i++){
-                    rows[i]=rs.getObject(i+1);
-            }
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/atletismo", "root", "");
+            ps = cn.prepareStatement("select * from carrera");
+            rs = ps.executeQuery();
+            rsm = rs.getMetaData();
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs.getObject(i + 1);
+                }
                 data.add(rows);
             }
-            dtm=(DefaultTableModel)this.jTableInscripcion.getModel();
+            dtm = (DefaultTableModel) this.jTableInscripcion.getModel();
             for (int i = 0; i < data.size(); i++) {
                 dtm.addRow(data.get(i));
-                
+
             }
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
