@@ -5,12 +5,26 @@
  */
 package GUI;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Jesús
  */
 public class Carreras extends javax.swing.JFrame {
-
+    Connection cn;
+    PreparedStatement ps;
+    ResultSet rs;
+    ResultSetMetaData rsm;
+    DefaultTableModel dtm;
     /**
      * Creates new form Carreras
      */
@@ -40,15 +54,20 @@ public class Carreras extends javax.swing.JFrame {
 
         jTableInscripcion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Nombre Carrera", "Distancia", "Fecha de inscripción"
+                "Codigo", "Nombre", "Localidad", "Provincia", "Fecha", "Hora", "Distancia"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTableInscripcion);
 
         jButtonDatos.setText("Cargar datos");
@@ -64,26 +83,49 @@ public class Carreras extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonDatos)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonDatos)
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(40, 40, 40)
                 .addComponent(jButtonDatos)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
-        // TODO add your handling code here:
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            cn=DriverManager.getConnection("jdbc:mysql://localhost/atletismo", "root", "");
+            ps=cn.prepareStatement("select * from carrera");
+            rs=ps.executeQuery();
+            rsm=rs.getMetaData();
+            ArrayList<Object[]> data=new ArrayList<>();
+            while (rs.next()){
+                Object[] rows=new Object[rsm.getColumnCount()];
+                for (int i = 0;i < rows.length; i++){
+                    rows[i]=rs.getObject(i+1);
+            }
+                data.add(rows);
+            }
+            dtm=(DefaultTableModel)this.jTableInscripcion.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+                
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     /**
@@ -95,5 +137,5 @@ public class Carreras extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableInscripcion;
     // End of variables declaration//GEN-END:variables
-    MiMenuBar barra = new MiMenuBar(this);
+   MiMenuBar barra = new MiMenuBar(this);
 }
