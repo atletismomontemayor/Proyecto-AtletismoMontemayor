@@ -17,6 +17,7 @@ public class Carreras extends javax.swing.JFrame {
     public Carreras() {
         this.add(barra);
         initComponents();
+        this.setLocationRelativeTo(null);
         MiMenuBar menu = new MiMenuBar(this);
         this.setJMenuBar(menu.getBarraMenu());
     }
@@ -35,6 +36,7 @@ public class Carreras extends javax.swing.JFrame {
         jButtonDatos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Lista de Carreras");
 
         jTableInscripcion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

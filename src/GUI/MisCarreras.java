@@ -17,6 +17,7 @@ public class MisCarreras extends javax.swing.JFrame {
     public MisCarreras() {
         this.add(barra);
         initComponents();
+        this.setLocationRelativeTo(null);
         MiMenuBar menu = new MiMenuBar(this);
         this.setJMenuBar(menu.getBarraMenu());
     }
@@ -41,6 +42,7 @@ public class MisCarreras extends javax.swing.JFrame {
         jTextFieldPuesto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Carreras corridas");
 
         jLabel1.setText("Carreras realizadas");
 
@@ -50,13 +52,10 @@ public class MisCarreras extends javax.swing.JFrame {
 
         jTableCarrera.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Carrera", "Tiempo ", "Kilometros", "Puesto"
+
             }
         ));
         jScrollPane1.setViewportView(jTableCarrera);

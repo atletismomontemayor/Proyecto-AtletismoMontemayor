@@ -15,6 +15,7 @@ public class MiPerfil extends javax.swing.JFrame {
      * Creates new form MiPerfil
      */
     public MiPerfil() {
+        this.setLocationRelativeTo(null);
         this.add(barra);
         initComponents();
         MiMenuBar menu = new MiMenuBar(this);
@@ -42,6 +43,7 @@ public class MiPerfil extends javax.swing.JFrame {
         jTextFieldCategoria = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Mi perfil");
 
         jLabelNombre.setText("Nombre");
 

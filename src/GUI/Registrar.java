@@ -21,6 +21,7 @@ public class Registrar extends javax.swing.JFrame {
      */
     public Registrar() {
         initComponents();
+        this.setLocationRelativeTo(null);
         buttonGroupSexo.add(jRadioButtonH);
         buttonGroupSexo.add(jRadioButtonM);
         jTextFieldCuenta.setEnabled(false);
@@ -46,7 +47,7 @@ public class Registrar extends javax.swing.JFrame {
         jTextFieldApellido = new javax.swing.JTextField();
         jTextFieldNomUser = new javax.swing.JTextField();
         jTextFieldPass = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jButtonAceptar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldDNI = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -62,6 +63,7 @@ public class Registrar extends javax.swing.JFrame {
         jRadioButtonCuenta = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Registrar");
 
         jLabelNombre.setText("Nombre");
 
@@ -83,10 +85,10 @@ public class Registrar extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Aceptar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAceptar.setText("Aceptar");
+        jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonAceptarActionPerformed(evt);
             }
         });
 
@@ -184,7 +186,7 @@ public class Registrar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
+                            .addComponent(jButtonAceptar)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jRadioButtonH, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -278,7 +280,7 @@ public class Registrar extends javax.swing.JFrame {
                                     .addComponent(jTextFieldTlfn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(jButtonAceptar)
                     .addComponent(jButtonBorrar))
                 .addGap(25, 25, 25))
         );
@@ -286,7 +288,7 @@ public class Registrar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         // TODO add your handling code here:
         if (!jTextFieldNombre.getText().equals("") || !jTextFieldApellido.getText().equals("") || !jTextFieldNomUser.getText().equals("")
                 || !jTextFieldPass.getText().equals("")) {
@@ -297,7 +299,7 @@ public class Registrar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jRadioButtonHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonHActionPerformed
         // TODO add your handling code here:
@@ -404,7 +406,7 @@ public class Registrar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupSexo;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonAceptar;
     private javax.swing.JButton jButtonBorrar;
     private javax.swing.JCheckBox jCheckBoxAdministrador;
     private javax.swing.JLabel jLabel1;

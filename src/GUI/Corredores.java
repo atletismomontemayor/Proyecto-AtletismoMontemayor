@@ -17,6 +17,7 @@ public class Corredores extends javax.swing.JFrame {
     public Corredores() {
         this.add(barra);
         initComponents();
+        this.setLocationRelativeTo(null);
         MiMenuBar menu = new MiMenuBar(this);
         this.setJMenuBar(menu.getBarraMenu());
     }
@@ -46,6 +47,7 @@ public class Corredores extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Lista de corredores");
 
         jTableCorredores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

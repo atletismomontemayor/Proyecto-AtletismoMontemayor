@@ -16,6 +16,7 @@ public class Sesion_Iniciada extends javax.swing.JFrame {
      */
     public Sesion_Iniciada() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -34,6 +35,7 @@ public class Sesion_Iniciada extends javax.swing.JFrame {
         jButtonCerrarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sesion Iniciada");
 
         jButtonMiPerfil.setText("Mi perfil");
         jButtonMiPerfil.addActionListener(new java.awt.event.ActionListener() {
